@@ -1,0 +1,35 @@
+# ================================================
+# KHÔNG đẩy lên git — đặt file này vào ROOT của
+# thư mục 3.DATT_2026_Ver2 (cùng chỗ với Data/, Notebook/, Paper/)
+# ================================================
+
+# Tài liệu nội bộ — không public
+Paper/
+
+# Model pkl — tự sinh khi deploy, không ship
+Notebook/product_v3/models/model.pkl
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# CatBoost log (artifact của notebook)
+catboost_info/
+**/catboost_info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# File dữ liệu thô dư thừa (giữ lại bản trong product_v3/data/raw/)
+Data/Mine_Dataset copy.xls

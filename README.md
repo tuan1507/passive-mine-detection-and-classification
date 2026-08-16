@@ -16,7 +16,6 @@ short_description: Xếp hạng ưu tiên rà phá bom mìn — đồ án tốt 
 # 🛡️ Passive Mine Detection and Classification
 ### Hệ thống hỗ trợ phát hiện và phân loại vật thể chôn ngầm
 
-**Đồ án tốt nghiệp** · Nguyễn Quang Tuấn (22AD053) · VKU 2026
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.38-red?logo=streamlit)](https://streamlit.io)

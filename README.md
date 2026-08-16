@@ -245,30 +245,4 @@ docker run -p 8501:8501 hnl206-uxo
 
 ---
 
-## Trích dẫn
-
-```bibtex
-@thesis{nguyen2026uxo,
-  author = {Nguyễn Quang Tuấn},
-  title  = {Nghiên cứu và xây dựng hệ thống hỗ trợ phát hiện, phân loại
-            vật thể chôn ngầm ứng dụng học máy trong rà phá bom mìn, vật nổ},
-  school = {Trường Đại học Công nghệ Thông tin và Truyền thông Việt -- Hàn},
-  year   = {2026}
-}
-```
-
----
-
-## Giấy phép
-
-Mã nguồn: **MIT** · Dữ liệu: **CC BY 4.0** (UCI Machine Learning Repository)
-
----
-
-<div align="center">
-
-**GVHD:** TS. Phạm Nguyễn Minh Nhựt · **Đơn vị thực tập:** Công ty TNHH MTV Hữu Nghị Nam Lào 206
-
-*Đây là công cụ nghiên cứu học thuật. Không dùng cho rà phá thực tế.*
-
 </div>

@@ -218,17 +218,6 @@ File CSV hoặc Excel với các cột:
 
 ---
 
-## Docker
-
-```bash
-cd Notebook/product_v3
-docker build -t hnl206-uxo .
-docker run -p 8501:8501 hnl206-uxo
-# → http://localhost:8501
-```
-
----
-
 ## Giới hạn và hướng phát triển
 
 **Giới hạn:**

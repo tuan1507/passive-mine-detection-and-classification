@@ -33,3 +33,6 @@ Thumbs.db
 
 # File dữ liệu thô dư thừa (giữ lại bản trong product_v3/data/raw/)
 Data/Mine_Dataset copy.xls
+
+# Cấu hình VS Code cá nhân
+.vscode/

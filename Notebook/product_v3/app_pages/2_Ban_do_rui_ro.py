@@ -10,7 +10,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-st.set_page_config(page_title="Bản đồ rủi ro", page_icon="🗺️", layout="wide")
 st.title("🗺️ Bản đồ rủi ro (lưới khảo sát)")
 st.caption("Mỗi điểm là một tín hiệu, đặt theo tọa độ khảo sát X–Y. "
            "Màu = mức ưu tiên đào; kích thước = xác suất có mìn. "
@@ -55,8 +54,7 @@ chart = (
                  alt.Tooltip("hang_uu_tien:Q", title="Hạng")],
     )
     .properties(height=560)
-    .configure_axis(grid=True, gridOpacity=0.15, labelColor="#DDD", titleColor="#DDD")
-    .configure_legend(labelColor="#DDD", titleColor="#DDD")
+    .configure_axis(grid=True, gridOpacity=0.15)
     .interactive()
 )
 st.altair_chart(chart, use_container_width=True)

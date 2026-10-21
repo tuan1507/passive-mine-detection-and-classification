@@ -4,7 +4,6 @@ Nội dung trang chủ (Home).
 File này được gọi qua st.navigation() trong Home.py.
 """
 import streamlit as st
-import os
 import core
 
 # ---- CSS tùy chỉnh cho giao diện chuyên nghiệp ----
@@ -38,10 +37,14 @@ with st.sidebar:
                 "3. Xem bản đồ rủi ro\n"
                 "4. Tải kết quả về")
     st.divider()
-    if os.path.exists(core.MODEL_PATH):
+    # load_bundle tự huấn luyện lại nếu model.pkl chưa có (model.pkl không nằm trong git)
+    try:
+        with st.spinner("Đang chuẩn bị mô hình..."):
+            meta = core.load_bundle()["meta"]
         st.success("✓ Mô hình đã sẵn sàng")
-    else:
-        st.error("✗ Chưa có mô hình — chạy train_final.py")
+    except Exception as e:
+        meta = None
+        st.error(f"✗ Không nạp được mô hình: {e}")
 
 # ---- Nội dung chính ----
 st.markdown('<p class="main-title">Hệ thống hỗ trợ phát hiện, phân loại '
@@ -87,12 +90,12 @@ st.info("👈 Chọn chức năng ở thanh bên trái để bắt đầu. "
         "Nếu chưa có dữ liệu, dùng file mẫu `data/sample_batch.xlsx`.")
 
 # thông tin mô hình
-if os.path.exists(core.MODEL_PATH):
-    meta = core.load_bundle()["meta"]
+if meta is not None:
     st.divider()
     st.caption(
-        f"Mô hình hiện tại · phân loại 5 lớp (CV): {meta['cv_accuracy']}% · "
-        f"recall phát hiện mìn (CV): {meta.get('detect_recall_cv','?')}%")
+        f"Mô hình: {meta['model_name']} · phân loại 5 lớp (CV): {meta['cv_accuracy']}% "
+        f"(đúng trong top-2: {meta['top2_accuracy_cv']}%) · "
+        f"recall phát hiện mìn (CV): {meta['detect_recall_cv']}%")
     st.caption(
         f"Ngưỡng ưu tiên = {meta['safe_threshold']} (ước lượng qua CV). "
         f"Lưu ý: chỉ giữ được recall 100% ở ~{meta.get('hold_100_rate','?')}% lần thử "

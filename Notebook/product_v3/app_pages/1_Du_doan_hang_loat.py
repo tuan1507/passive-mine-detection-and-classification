@@ -6,7 +6,6 @@ import pandas as pd
 import io
 import core
 
-st.set_page_config(page_title="Dự đoán hàng loạt", page_icon="📤", layout="wide")
 st.title("📤 Dự đoán hàng loạt")
 st.caption("Tải lên file tín hiệu của cả khu vực (Excel hoặc CSV), "
            "hệ thống trả về bảng kết quả có xếp hạng ưu tiên đào.")
@@ -21,15 +20,26 @@ up = st.file_uploader("Chọn file tín hiệu", type=["xlsx", "xls", "csv"])
 col_a, col_b = st.columns([1, 3])
 use_sample = col_a.button("Dùng file mẫu")
 
+SAMPLE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "sample_batch.xlsx")
+
+# Nhớ nguồn dữ liệu trong session: st.button chỉ True ở đúng một lần chạy lại,
+# nếu không lưu thì đổi bộ lọc bên dưới sẽ làm mất kết quả của file mẫu.
+if use_sample:
+    st.session_state["src"] = "sample"
+elif up is not None:
+    st.session_state["src"] = "upload"
+elif st.session_state.get("src") == "upload":
+    st.session_state.pop("src")   # người dùng đã gỡ file
+
 df_in = None
-if up is not None:
-    df_in = pd.read_csv(up) if up.name.endswith("csv") else pd.read_excel(up)
-elif use_sample:
-    try:
-        df_in = pd.read_excel(os.path.join(os.path.dirname(__file__), "..", "data", "sample_batch.xlsx"))
+try:
+    if st.session_state.get("src") == "upload" and up is not None:
+        df_in = pd.read_csv(up) if up.name.lower().endswith(".csv") else pd.read_excel(up)
+    elif st.session_state.get("src") == "sample":
+        df_in = pd.read_excel(SAMPLE_PATH)
         st.info("Đang dùng file mẫu (338 tín hiệu, có tọa độ giả lập).")
-    except Exception:
-        st.error("Không tìm thấy file mẫu.")
+except Exception as e:
+    st.error(f"Không đọc được file: {e}")
 
 if df_in is not None:
     try:
@@ -68,7 +78,7 @@ if df_in is not None:
         return style.get(val, "color: #1a1a1a")
 
     show_cols = [c for c in ["id", "V", "H", "S", "xac_suat_co_min",
-                 "loai_du_doan", "muc_uu_tien", "hang_uu_tien"] if c in view.columns]
+                 "loai_du_doan", "loai_kha_nang_2", "muc_uu_tien", "hang_uu_tien"] if c in view.columns]
     st.dataframe(
         view[show_cols].style.map(color_level, subset=["muc_uu_tien"]),
         use_container_width=True, hide_index=True, height=420)

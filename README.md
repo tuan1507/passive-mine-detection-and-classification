@@ -5,6 +5,7 @@ colorFrom: blue
 colorTo: gray
 sdk: streamlit
 sdk_version: 1.38.0
+python_version: "3.11"
 app_file: Notebook/product_v3/Home.py
 pinned: false
 license: mit
@@ -71,12 +72,17 @@ Bài báo công bố **98,2% phát hiện** và **85,8% phân loại**. Đề t�
 
 ### Hiệu năng sản phẩm
 
-| Chỉ số | Giá trị |
-|---|:---:|
-| Phân loại 5 lớp (CV) | **59,5%** |
-| Recall phát hiện mìn (CV) | **93,6%** |
-| Ngưỡng ưu tiên (CV) | **0,1487** |
-| Giữ recall 100% trên dữ liệu mới | ~50% lần thử |
+Hai mô hình cho hai bài toán con (chi tiết: `Notebook/09_cai_thien_do_chinh_xac.ipynb`):
+**phân loại** = MLP(16-8) + log V + one-hot loại đất; **phát hiện / xếp hạng** = HistGradientBoosting nhị phân.
+
+| Chỉ số (CV lặp 5×3) | Bản cũ | **Bản hiện tại** |
+|---|:---:|:---:|
+| Phân loại 5 lớp | 59,5% | **71,8% ± 4,6** |
+| Đúng trong top-2 loại | ~79% | **88,3%** |
+| ROC-AUC phát hiện | — | **0,948** |
+| Recall tại ngưỡng ưu tiên (đo trên test tách biệt) | — | **99,4% ± 1,0** |
+| Giữ recall 100% trên dữ liệu mới | ~50% lần thử | ~75% lần thử |
+| Không-mìn được xếp cuối hàng đợi | — | 27% |
 
 ### So sánh mô hình
 
@@ -149,7 +155,7 @@ passive-mine-detection-and-classification/
 │   │   ├── train_final.py           # Huấn luyện → models/model.pkl
 │   │   ├── requirements.txt
 │   │   ├── Dockerfile
-│   │   ├── pages/
+│   │   ├── app_pages/
 │   │   │   ├── 0_Home_page.py       # Trang chủ + thông tin mô hình
 │   │   │   ├── 1_Du_doan_hang_loat.py
 │   │   │   ├── 2_Ban_do_rui_ro.py
@@ -166,7 +172,11 @@ passive-mine-detection-and-classification/
 │   ├── 04_so_sanh_mo_hinh.ipynb     # So sánh 9 mô hình
 │   ├── 05_kiem_dinh_thong_ke.ipynb  # Friedman, Nemenyi, CD diagram
 │   ├── 06_chi_phi_loi.ipynb         # Chi phí lỗi bất đối xứng, ngưỡng CV
-│   └── 07_giai_thich_model.ipynb    # Permutation importance, SHAP
+│   ├── 07_giai_thich_model.ipynb    # Permutation importance, SHAP
+│   ├── 08_san_pham_core.ipynb       # core.py + train_final.py dạng từng bước (debug)
+│   ├── 09_cai_thien_do_chinh_xac.ipynb  # 59,5% → 71,8%: đặc trưng + MLP, so sánh xếp hạng
+│   ├── 10_kiem_thu_app.ipynb        # các trang app dạng notebook + AppTest
+│   └── requirements-notebooks.txt   # môi trường chạy notebook (đã kiểm thử)
 │
 ├── Data/
 │   └── Mine_Dataset_main.xls        # Bộ dữ liệu UCI Land Mines gốc
@@ -204,6 +214,9 @@ File CSV hoặc Excel với các cột:
 | 05 | `05_kiem_dinh_thong_ke.ipynb` | Friedman, Nemenyi, CD Diagram |
 | 06 | `06_chi_phi_loi.ipynb` | PR curve, chi phí bất đối xứng, ngưỡng CV |
 | 07 | `07_giai_thich_model.ipynb` | Permutation importance, SHAP, tam giác hoá |
+| 08 | `08_san_pham_core.ipynb` | Lõi sản phẩm từng bước: đặc trưng, 2 mô hình, CV, ngưỡng, dự đoán |
+| 09 | `09_cai_thien_do_chinh_xac.ipynb` | Nâng phân loại 59,5% → 71,8%; vì sao dùng 2 mô hình |
+| 10 | `10_kiem_thu_app.ipynb` | Logic các trang Streamlit + kiểm thử tự động |
 
 ---
 

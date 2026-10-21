@@ -4,7 +4,6 @@ import streamlit as st
 import pandas as pd
 import core
 
-st.set_page_config(page_title="Thử đơn lẻ", page_icon="🔬", layout="centered")
 st.title("🔬 Thử một tín hiệu")
 st.caption("Nhập thủ công một tín hiệu để xem mô hình dự đoán. "
            "Dùng để minh họa và kiểm thử, không phải luồng chính.")

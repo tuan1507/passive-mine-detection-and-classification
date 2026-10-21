@@ -1,2 +1,0 @@
-# Hugging Face Space cài thư viện từ file ở thư mục gốc -> trỏ về requirements của ứng dụng
--r Notebook/product_v3/requirements.txt

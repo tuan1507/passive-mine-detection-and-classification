@@ -1,17 +1,3 @@
----
-title: Passive Mine Detection and Classification
-emoji: 🛡️
-colorFrom: blue
-colorTo: gray
-sdk: streamlit
-sdk_version: 1.38.0
-python_version: "3.11"
-app_file: Notebook/product_v3/Home.py
-pinned: false
-license: mit
-short_description: Xếp hạng ưu tiên rà phá bom mìn — đồ án tốt nghiệp VKU 2026
----
-
 <div align="center">
 
 # 🛡️ Passive Mine Detection and Classification
@@ -22,7 +8,7 @@ short_description: Xếp hạng ưu tiên rà phá bom mìn — đồ án tốt 
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.38-red?logo=streamlit)](https://streamlit.io)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.1-orange)](https://scikit-learn.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![HF Space](https://img.shields.io/badge/🤗%20HF-Space-yellow)](https://huggingface.co/spaces/Naut1507/passive-mine-detection-and-classification)
+[![Demo](https://img.shields.io/badge/Demo-Streamlit%20Cloud-FF4B4B?logo=streamlit)](https://passive-mine-detection.streamlit.app)
 
 </div>
 
@@ -105,7 +91,7 @@ nhất quán với lý giải vật lý.
 
 ## Demo
 
-🤗 **[Hugging Face Space](https://huggingface.co/spaces/Naut1507/passive-mine-detection-and-classification)**
+🚀 **[passive-mine-detection.streamlit.app](https://passive-mine-detection.streamlit.app)**
 
 **Cách dùng nhanh:**
 1. Vào tab **Dự đoán hàng loạt**

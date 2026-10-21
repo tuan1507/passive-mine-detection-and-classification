@@ -61,8 +61,8 @@ docker run -p 8501:8501 hnl206-uxo    # http://localhost:8501
 - Hai mô hình: **MLP + log V + one-hot loại đất** cho loại mìn (~72% CV), **HistGradientBoosting nhị phân** cho P(có mìn) và xếp hạng (ROC-AUC ~0,95). Phần phân tích
   học thuật (k-NN+DE, sửa rò rỉ, kiểm định thống kê) nằm ở các notebook Giai
   đoạn 2-7, tách khỏi sản phẩm này.
-- **model.pkl KHÔNG nằm trong git** (xem .gitignore). Lần chạy đầu, app tự huấn luyện
-  (~30 giây) rồi lưu vào models/. Nếu môi trường lệch phiên bản khiến pkl không nạp
+- **model.pkl được commit sẵn** (huấn luyện bằng các phiên bản ghim trong requirements.txt), app chỉ nạp
+  file, không huấn luyện trên máy chủ. Nếu môi trường lệch phiên bản khiến pkl không nạp
   được, app **tự huấn luyện lại một lần** từ dữ liệu kèm theo — bạn không phải
   làm gì.
 - **Ngưỡng ưu tiên** ước lượng bằng cross-validation (nhất quán Giai đoạn 6),

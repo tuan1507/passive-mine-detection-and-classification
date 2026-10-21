@@ -7,8 +7,7 @@
 Paper/
 TRINH_BAY_HOI_DONG.md
 
-# Model pkl — tự sinh khi deploy, không ship
-Notebook/product_v3/models/model.pkl
+# model.pkl ĐƯỢC commit: app nạp sẵn, không phải huấn luyện trên máy chủ (tránh bị throttle CPU)
 
 # Python cache
 __pycache__/
@@ -37,3 +36,4 @@ Data/Mine_Dataset copy.xls
 
 # Cấu hình VS Code cá nhân
 .vscode/
+.obsidian/

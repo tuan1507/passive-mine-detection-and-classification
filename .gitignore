@@ -5,6 +5,7 @@
 
 # Tài liệu nội bộ — không public
 Paper/
+TRINH_BAY_HOI_DONG.md
 
 # Model pkl — tự sinh khi deploy, không ship
 Notebook/product_v3/models/model.pkl

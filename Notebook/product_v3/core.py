@@ -167,6 +167,7 @@ def train_and_save(data_path=DEFAULT_DATA, model_path=MODEL_PATH):
         "detector": detector,    # phát hiện nhị phân -> P(có mìn), xếp hạng, ngưỡng
         "meta": {
             "model_name": MODEL_NAME,
+            "sklearn_version": _sklearn_version(),
             "features": FEATURES,
             "classes": CLASS_NAMES,
             **cv_stats,
@@ -184,26 +185,37 @@ def train_and_save(data_path=DEFAULT_DATA, model_path=MODEL_PATH):
 # ------------------------------------------------------------------------- load
 _cache = {}
 
+def _sklearn_version():
+    import sklearn
+    return sklearn.__version__
+
 def _bundle_ok(b):
-    """pkl hợp lệ nếu nạp được và có đủ các trường meta của phiên bản hiện tại
-    (pkl của mô hình cũ thiếu 'model_name' / 'top2_accuracy_cv' -> tự train lại)."""
+    """pkl hợp lệ nếu có đủ các trường meta của phiên bản hiện tại, đúng mô hình, và được
+    tạo bằng ĐÚNG phiên bản scikit-learn đang chạy (lệch phiên bản -> sklearn chỉ cảnh báo
+    'có thể sai kết quả', nên coi như không hợp lệ và tự train lại)."""
     need = {"safe_threshold", "cv_accuracy", "detect_recall_cv", "hold_100_rate",
-            "model_name", "top2_accuracy_cv"}
+            "model_name", "top2_accuracy_cv", "sklearn_version"}
     return (isinstance(b, dict) and "pipeline" in b and "detector" in b
             and need.issubset(b.get("meta", {}))
-            and b["meta"]["model_name"] == MODEL_NAME)
+            and b["meta"]["model_name"] == MODEL_NAME
+            and b["meta"]["sklearn_version"] == _sklearn_version())
 
 def load_bundle(model_path=MODEL_PATH):
     """Nạp mô hình; TỰ PHỤC HỒI nếu pkl thiếu/hỏng/lệch phiên bản sklearn/mô hình cũ.
     Bình thường KHÔNG train lại — chỉ train một lần khi pkl không dùng được."""
     if "bundle" in _cache:
         return _cache["bundle"]
+    import warnings
     b = None
     try:
-        b = joblib.load(model_path)
+        with warnings.catch_warnings():       # lệch phiên bản được xử lý bởi _bundle_ok
+            warnings.simplefilter("ignore")
+            b = joblib.load(model_path)
     except Exception as e:
-        print("[core] Không nạp được model.pkl (%s). Tự huấn luyện lại một lần..." % e)
+        print("[core] Không nạp được model.pkl (%s)." % e)
     if not _bundle_ok(b):
+        print("[core] model.pkl thiếu / mô hình cũ / lệch phiên bản scikit-learn "
+              "(cần %s) -> tự huấn luyện lại một lần..." % _sklearn_version())
         if not os.path.exists(DEFAULT_DATA):
             raise RuntimeError("model.pkl thiếu/không hợp lệ và không tìm thấy dữ liệu "
                                "huấn luyện tại %s." % DEFAULT_DATA)

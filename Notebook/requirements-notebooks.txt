@@ -1,14 +1,13 @@
-# Môi trường chạy các notebook 01–10 (đã kiểm thử 2026-10-20, Python 3.11).
+# Môi trường chạy các notebook 01–10 (đã kiểm thử với Python 3.11 và 3.13).
 # Cài: pip install -r Notebook/requirements-notebooks.txt
 -r product_v3/requirements.txt
 scipy==1.17.1
 matplotlib==3.11.2
 seaborn==0.13.2
-# lightgbm 4.7 bị access violation với numpy 1.26 (ghim bởi app) -> dùng 4.5
-lightgbm==4.5.0
+lightgbm==4.6.0       # 4.7.0 bị access violation khi fit (đã kiểm chứng)
 xgboost==3.2.0
 catboost==1.2.10
-shap==0.49.1
+shap==0.51.0
 ipykernel
 nbclient
 nbformat
